@@ -1,0 +1,1 @@
+{'login': 'ahyno', 'password': 'a96cc15093c98abd5cd060323de149cf806b72de1c209a43f7258e48a7119f00', 'email': 'arsenij-perfilov@mail.ru', 'phone': '89173180655', 'full_name': 'GAy', 'city': 'q', 'about': 'q'}
