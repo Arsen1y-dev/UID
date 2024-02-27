@@ -4,7 +4,7 @@ def login_(login):
     return re.match(r'^[a-zA-Z0-9]{5,}$', login)
 
 def password_(password):
-    return re.match(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$', password)
+    return re.match(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$', password)
 
 def email_(email):
     return re.match(r'^[^@]+@[^@]+\.[^@]+$', email)
