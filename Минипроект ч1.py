@@ -38,7 +38,6 @@ class DecisionApp(QWidget):
         self.btn_for.clicked.connect(self.increment_for)
         self.btn_against.clicked.connect(self.increment_against)
 
-        # Загрузка данных при запуске
         self.load_votes()
 
     def increment_for(self):
