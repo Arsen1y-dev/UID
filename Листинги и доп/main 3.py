@@ -15,7 +15,7 @@ class MyWindow(QtWidgets.QWidget):
         self.show()
 
     def move_btn(self):
-        self.btn.move(self.btn.x() + 5, 30)
+        self.btn.move(self.btn.x() + 15, 30)
 
 
 app = QtWidgets.QApplication(sys.argv)
