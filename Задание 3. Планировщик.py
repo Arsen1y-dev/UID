@@ -5,7 +5,6 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QCa
 from PyQt6.QtCore import QDateTime, QDate, Qt
 from PyQt6.uic import loadUi
 
-
 class AddEventDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)

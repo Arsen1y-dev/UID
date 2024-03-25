@@ -4,7 +4,6 @@ from PyQt6 import QtWidgets, uic
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import Qt, QDateTime
 
-
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -152,7 +151,6 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.events[date_str] = [event for event in self.events[date_str] if event[0] != selected_event]
                 self.update_event()
                 self.save_events()
-
 
 class AddEventDialog(QtWidgets.QDialog):
     def __init__(self, parent=None):
