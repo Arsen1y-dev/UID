@@ -6,26 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>629</width>
-    <height>443</height>
+    <width>548</width>
+    <height>420</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Помощник в принятии решений</string>
   </property>
-  <widget class="QWidget" name="MyWidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout">
+  <widget class="QWidget" name="MainWindow">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QHBoxLayout" name="Layout_1">
       <item>
-       <widget class="QLineEdit" name="input_decision">
+       <widget class="QLineEdit" name="add_question">
         <property name="text">
          <string>Введите вопрос</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="add_question_Button">
         <property name="text">
          <string>Добавить вопрос</string>
         </property>
@@ -33,31 +33,31 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label">
+    <item>
+     <widget class="QLabel" name="label_question">
       <property name="text">
        <string>Вопрос</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLineEdit" name="input_arguments">
+    <item>
+     <widget class="QLineEdit" name="add_arguments">
       <property name="text">
        <string>Введите аргумент</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <layout class="QHBoxLayout" name="Layout_2">
       <item>
-       <widget class="QPushButton" name="btn_for">
+       <widget class="QPushButton" name="for_Button">
         <property name="text">
          <string>Добавить аргумент &quot;За&quot;</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_against">
+       <widget class="QPushButton" name="against_Button">
         <property name="text">
          <string>Добавить аргумент &quot;Против&quot;</string>
         </property>
@@ -65,8 +65,8 @@
       </item>
      </layout>
     </item>
-    <item row="4" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <layout class="QHBoxLayout" name="Layout_3">
       <item>
        <widget class="QLabel" name="label_for">
         <property name="text">
@@ -83,18 +83,18 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <item>
+     <layout class="QHBoxLayout" name="Layout_4">
       <item>
-       <widget class="QListWidget" name="listWidget"/>
+       <widget class="QListWidget" name="list_for"/>
       </item>
       <item>
-       <widget class="QListWidget" name="listWidget_2"/>
+       <widget class="QListWidget" name="list_against"/>
       </item>
      </layout>
     </item>
-    <item row="6" column="0">
-     <widget class="QPushButton" name="btn_reset">
+    <item>
+     <widget class="QPushButton" name="reset_Button">
       <property name="text">
        <string>Сброс</string>
       </property>
