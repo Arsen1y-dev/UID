@@ -1,45 +1,32 @@
 import sys
 import json
-from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QCalendarWidget, QPushButton, QTextEdit, \
-    QDialog, QDialogButtonBox, QListWidget, QMessageBox, QHBoxLayout, QTimeEdit, QListWidgetItem
-from PyQt6.QtCore import QDateTime, QDate, Qt
-from PyQt6.uic import loadUi
-
+from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QListWidgetItem
+from PyQt6.QtCore import QDateTime, Qt
+from PyQt6 import uic  
+ 
+ 
 class AddEventDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
+        uic.loadUi('EventDialog.ui', self)  
 
-        self.setWindowTitle("Добавить событие")
-
-        layout = QVBoxLayout()
-
-        self.event_text_edit = QTextEdit()
-        layout.addWidget(self.event_text_edit)
-
-        self.time_edit = QTimeEdit()
-        layout.addWidget(self.time_edit)
-
-        button_box = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
-        button_box.accepted.connect(self.accept)
-        button_box.rejected.connect(self.reject)
-        layout.addWidget(button_box)
-
-        self.setLayout(layout)
-
+        self.buttonBox.accepted.connect(self.accept)
+        self.buttonBox.rejected.connect(self.reject)
+        
     def get_event_data(self):
-        event_text = self.event_text_edit.toPlainText()
-        event_time = self.time_edit.time()
+        event_text = self.textEdit.toPlainText()
+        event_time = self.timeEdit.time()
         return event_text, event_time
 
 
 class DayPlanner(QMainWindow):
     def __init__(self):
-        super(DayPlanner, self).__init__()
-        loadUi("Задание 3. Планировщик.ui", self)
+        super().__init__()
+        uic.loadUi('Задание 3. Планировщик.ui', self)
         
+        self.calendarWidget.selectionChanged.connect(self.update_event)
         self.addButton.clicked.connect(self.add_event)
         self.removeButton.clicked.connect(self.remove_event)
-
         self.events = {}
         self.load_events()
 
@@ -61,11 +48,11 @@ class DayPlanner(QMainWindow):
     def remove_event(self):
         selected_item = self.eventList.currentItem()
         if selected_item:
-            selected_event = selected_item.text()
+            selected_text = selected_item.text().split(" - ")[0]  # Extract event text
             selected_date = self.calendarWidget.selectedDate()
             date_str = selected_date.toString("dd.MM.yyyy")
             if date_str in self.events:
-                self.events[date_str] = [event for event in self.events[date_str] if event[0] != selected_event]
+                self.events[date_str] = [event for event in self.events[date_str] if event[0] != selected_text]
                 self.update_event()
                 self.save_events()
 

@@ -1,31 +1,27 @@
-import sys
+import os
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
+from PyQt6.QtGui import QPixmap, QImage, QTransform
+from PyQt6.QtCore import QTimer, Qt
 
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog
-from PyQt6.QtGui import QPixmap
 
-SCREEN_SIZE = [500, 500]
-
-class Example(QMainWindow):
+class ImageViewer(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.initUI()
+        self.current_image_index = 0
+        self.image_files = []
+        self.image_count = 0
 
-    def initUI(self):
-        self.setGeometry(400, 400, *SCREEN_SIZE)
-        self.setWindowTitle('Отображение картинки')
+        self.setup_ui()
+        self.load_images()
+        self.update_image()
 
-        fname, _ = QFileDialog.getOpenFileName(self, 'Выбрать картинку', '','Картинка (*.jpg);;Картинка (*.png);;Все файлы (*)')
-        self.pixmap = QPixmap(fname)
-        if not self.pixmap.isNull():
-            self.image = QLabel(self)
-            self.image.move(60, 60)
-            self.image.resize(400, 400)
-            self.image.setPixmap(self.pixmap)
-        else:
-            self.statusBar().showMessage('Выберите файл изображения')
+    def setup_ui(self):
+        self.setWindowTitle("Image Viewer")
+        self.central_widget = QLabel()
+        self.setCentralWidget(self.central_widget)
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = Example()
-    ex.show()
-    sys.exit(app.exec()) 
+        self.btn_previous = QPushButton("Previous", self)
+        self.btn_previous.clicked.connect(self.previous_image)
+
+        self.btn_next = QPushButton("Next", self)
+        self.btn_next

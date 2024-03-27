@@ -63,7 +63,7 @@ class MyWidget(QMainWindow):
             file.write(f'Против: {self.count_against}\n')
             decision_text = self.input_decision.text()
             file.write(f'Решение: {decision_text}\n')
-            question_text = self.input_question.text()
+            question_text = self.input_decision.text()
             file.write(f'Вопрос: {question_text}\n')
             argument_text = self.input_arguments.text()
             if argument_text:
