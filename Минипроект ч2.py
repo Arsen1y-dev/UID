@@ -94,7 +94,7 @@ class DecisionMaker(QMainWindow):
 
     def load_data(self):
         try:
-            with open("Сохранение 2 минипроекта.json", "r") as file:
+            with open("/Users/arseniy/Documents/GitHub/UID/JSONки/Сохранение 2 минипроекта.json", "r") as file:
                 data = json.load(file)
                 self.arguments_for = data["arguments_for"]
                 self.arguments_against = data["arguments_against"]
@@ -106,7 +106,7 @@ class DecisionMaker(QMainWindow):
         
 
     def save_data(self):
-        with open("Сохранение 2 минипроекта.json", "w") as file:
+        with open("/Users/arseniy/Documents/GitHub/UID/JSONки/Сохранение 2 минипроекта.json", "w") as file:
             json.dump({"arguments_for": self.arguments_for,
                        "arguments_against": self.arguments_against,
                        "for_count": self.for_count,

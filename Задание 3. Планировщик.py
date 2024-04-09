@@ -72,13 +72,13 @@ class DayPlanner(QMainWindow):
 
     def load_events(self):
         try:
-            with open("events.json", "r") as file:
+            with open("/Users/arseniy/Documents/GitHub/UID/JSONки/events.json", "r") as file:
                 self.events = json.load(file)
         except FileNotFoundError:
             pass
 
     def save_events(self):
-        with open("events.json", "w") as file:
+        with open("/Users/arseniy/Documents/GitHub/UID/JSONки/events.json", "w") as file:
             json.dump(self.events, file)
 
 
@@ -87,3 +87,4 @@ if __name__ == "__main__":
     planner = DayPlanner()
     planner.show()
     sys.exit(app.exec())
+
