@@ -1,12 +1,13 @@
 import sys
 import json
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QListWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QListWidget, \
+QDialog, QListWidgetItem
 from PyQt6 import uic
 
 class DecisionMaker(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('Минипроект 2.ui', self)
+        uic.loadUi('Минипроект 3.ui', self)
 
 
         self.arguments_for = []
@@ -94,7 +95,7 @@ class DecisionMaker(QMainWindow):
 
     def load_data(self):
         try:
-            with open("Сохранение 2 минипроекта.json", "r") as file:
+            with open("Сохранение 3 минипроекта.json", "r") as file:
                 data = json.load(file)
                 self.arguments_for = data["arguments_for"]
                 self.arguments_against = data["arguments_against"]
@@ -106,7 +107,7 @@ class DecisionMaker(QMainWindow):
         
 
     def save_data(self):
-        with open("Сохранение 2 минипроекта.json", "w") as file:
+        with open("Сохранение 3 минипроекта.json", "w") as file:
             json.dump({"arguments_for": self.arguments_for,
                        "arguments_against": self.arguments_against,
                        "for_count": self.for_count,
@@ -119,15 +120,3 @@ if __name__ == '__main__':
     window = DecisionMaker()
     window.show()
     sys.exit(app.exec())
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
