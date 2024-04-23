@@ -1,14 +1,14 @@
 import sys
 import json
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QListWidget, \
-QDialog, QListWidgetItem
+    QDialog, QListWidgetItem, QComboBox, QLCDNumber
 from PyQt6 import uic
+from PyQt6.QtCore import QObject, pyqtSlot
 
 class DecisionMaker(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('Минипроект 3.ui', self)
-
 
         self.arguments_for = []
         self.arguments_against = []
@@ -21,12 +21,12 @@ class DecisionMaker(QMainWindow):
         self.init_ui()
 
     def init_ui(self):
-
         self.set_question_button = self.findChild(QPushButton, 'qwestion_add')
         self.set_question_button.clicked.connect(self.set_question)
-        self.question_input = self.findChild(QLineEdit, 'qwestion_input')
+        
+        # Replace QLineEdit with QComboBox for question input
+        self.question_input = self.findChild(QComboBox, 'qwestion_input')
         self.question_label = self.findChild(QLabel, 'qwestion')
-
 
         self.arg_input_button = self.findChild(QLineEdit, 'arg_input')
         self.for_button = self.findChild(QPushButton, 'arg_za')
@@ -38,23 +38,33 @@ class DecisionMaker(QMainWindow):
         self.arguments_for_list = self.findChild(QListWidget, 'args_za')
         self.arguments_against_list = self.findChild(QListWidget, 'args_prot')
 
-        self.against_count_button = self.findChild(QLabel, 'num_prot')
-        self.for_count_button = self.findChild(QLabel, 'num_za')
+        self.against_count_lcd = self.findChild(QLCDNumber, 'lcdNumber_protiv')  # Change to QLCDNumber
+        self.for_count_lcd = self.findChild(QLCDNumber, 'lcdNumber_za')  # Change to QLCDNumber
 
         self.reset_button = self.findChild(QPushButton, 'reset')
 
         self.for_button.clicked.connect(self.add_argument_for)
-
         self.against_button.clicked.connect(self.add_argument_against)
-
         self.reset_button.clicked.connect(self.reset_all)
 
+        # Connect currentIndexChanged signal of QComboBox to update_combo_box method
+        self.question_input.currentIndexChanged.connect(self.update_combo_box)
+
+        self.update_display()
+        self.populate_questions()  # Populate questions in the QComboBox
+
+    @pyqtSlot(int)
+    def update_combo_box(self, index):
+        # Get the text of the selected item in the QComboBox
+        self.current_question = self.question_input.currentText()
         self.update_display()
 
+    def populate_questions(self):
+        # Populate questions in the QComboBox
+        questions = ["Вопрос 1", "Вопрос 2", "Вопрос 3"]  # Example questions
+        self.question_input.addItems(questions)
 
     def set_question(self):
-        self.current_question = self.question_input.text()
-        self.question_input.clear()
         self.update_display()
         self.save_data()
 
@@ -78,18 +88,17 @@ class DecisionMaker(QMainWindow):
             self.arguments_for_list.addItem(argument)
         for argument in self.arguments_against:
             self.arguments_against_list.addItem(argument)
-        self.for_count = len(self.arguments_for_list)
-        self.against_count = len(self.arguments_against_list)
-        self.for_count_button.setText('Количество за: ' + str(self.for_count))
-        self.against_count_button.setText('Количество против : ' + str(self.against_count))
-
+        self.for_count = len(self.arguments_for)
+        self.against_count = len(self.arguments_against)
+        # Set the values of QLCDNumber widgets
+        self.for_count_lcd.display(self.for_count)
+        self.against_count_lcd.display(self.against_count)
 
     def reset_all(self):
         self.current_question = "Вопрос"
-        self.question_input.clear()
+        self.question_input.setCurrentIndex(0)  # Reset QComboBox selection
         self.arguments_for.clear()
         self.arguments_against.clear()
-
         self.save_data()
         self.update_display()
 
@@ -104,7 +113,6 @@ class DecisionMaker(QMainWindow):
                 self.current_question = data["current_question"]
         except FileNotFoundError:
             pass
-        
 
     def save_data(self):
         with open("Сохранение 3 минипроекта.json", "w") as file:
