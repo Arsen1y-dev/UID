@@ -1,127 +1,111 @@
 import sys
 import json
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QListWidget, \
-    QDialog, QListWidgetItem, QComboBox, QLCDNumber
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QListWidget, QComboBox, QLCDNumber
 from PyQt6 import uic
-from PyQt6.QtCore import QObject, pyqtSlot
 
 class DecisionMaker(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('Минипроект 3.ui', self)
 
-        self.arguments_for = []
-        self.arguments_against = []
-        self.current_question = "Вопрос"
-
-        self.for_count = 0
-        self.against_count = 0
+        self.decision_data = {}
+        self.current_decision_key = None
 
         self.load_data()
         self.init_ui()
 
     def init_ui(self):
-        self.set_question_button = self.findChild(QPushButton, 'qwestion_add')
-        self.set_question_button.clicked.connect(self.set_question)
-        
-        # Replace QLineEdit with QComboBox for question input
-        self.question_input = self.findChild(QComboBox, 'qwestion_input')
-        self.question_label = self.findChild(QLabel, 'qwestion')
+        self.qwestion_add = self.findChild(QPushButton, 'qwestion_add')
+        self.qwestion_add.clicked.connect(self.set_question)
 
-        self.arg_input_button = self.findChild(QLineEdit, 'arg_input')
-        self.for_button = self.findChild(QPushButton, 'arg_za')
-        self.against_button = self.findChild(QPushButton, 'arp_prot')
+        self.qwestion_input = self.findChild(QLineEdit, 'qwestion_input')
 
-        self.prot = self.findChild(QLabel, 'prot')
-        self.za = self.findChild(QLabel, 'za')
+        self.arg_za = self.findChild(QPushButton, 'arg_za')
+        self.arg_za.clicked.connect(self.add_argument_for)
 
-        self.arguments_for_list = self.findChild(QListWidget, 'args_za')
-        self.arguments_against_list = self.findChild(QListWidget, 'args_prot')
+        self.arp_prot = self.findChild(QPushButton, 'arp_prot')
+        self.arp_prot.clicked.connect(self.add_argument_against)
 
-        self.against_count_lcd = self.findChild(QLCDNumber, 'lcdNumber_protiv')  # Change to QLCDNumber
-        self.for_count_lcd = self.findChild(QLCDNumber, 'lcdNumber_za')  # Change to QLCDNumber
+        self.args_za = self.findChild(QListWidget, 'args_za')
+        self.args_prot = self.findChild(QListWidget, 'args_prot')
 
-        self.reset_button = self.findChild(QPushButton, 'reset')
+        self.lcdNumber_za = self.findChild(QLCDNumber, 'lcdNumber_za')
+        self.lcdNumber_protiv = self.findChild(QLCDNumber, 'lcdNumber_protiv')
 
-        self.for_button.clicked.connect(self.add_argument_for)
-        self.against_button.clicked.connect(self.add_argument_against)
-        self.reset_button.clicked.connect(self.reset_all)
+        self.arg_input = self.findChild(QLineEdit, 'arg_input')
+        self.comboBox = self.findChild(QComboBox, 'comboBox')
+        self.reset = self.findChild(QPushButton, 'reset')
+        self.reset.clicked.connect(self.reset_all)
 
-        # Connect currentIndexChanged signal of QComboBox to update_combo_box method
-        self.question_input.currentIndexChanged.connect(self.update_combo_box)
+        self.comboBox.currentIndexChanged.connect(self.switch_question)
 
         self.update_display()
-        self.populate_questions()  # Populate questions in the QComboBox
 
-    @pyqtSlot(int)
-    def update_combo_box(self, index):
-        # Get the text of the selected item in the QComboBox
-        self.current_question = self.question_input.currentText()
+    def switch_question(self):
+        self.current_decision_key = self.comboBox.currentText()
         self.update_display()
-
-    def populate_questions(self):
-        # Populate questions in the QComboBox
-        questions = ["Вопрос 1", "Вопрос 2", "Вопрос 3"]  # Example questions
-        self.question_input.addItems(questions)
 
     def set_question(self):
-        self.update_display()
-        self.save_data()
+        new_question = self.qwestion_input.text()
+        if new_question and new_question not in self.decision_data:
+            self.decision_data[new_question] = {"arguments_for": [], "arguments_against": []}
+            self.comboBox.addItem(new_question)
+            self.comboBox.setCurrentText(new_question)
+            self.current_decision_key = new_question
+            self.save_data()
+        self.qwestion_input.clear()
 
     def add_argument_for(self):
-        argument = self.arg_input_button.text()
-        self.arguments_for.append(argument)
-        self.save_data()
-        self.update_display()
+        if self.current_decision_key:
+            argument = self.arg_input.text()
+            self.decision_data[self.current_decision_key]["arguments_for"].append(argument)
+            self.save_data()
+            self.update_display()
+        self.arg_input.clear()
 
     def add_argument_against(self):
-        argument = self.arg_input_button.text()
-        self.arguments_against.append(argument)
-        self.save_data()
-        self.update_display()
+        if self.current_decision_key:
+            argument = self.arg_input.text()
+            self.decision_data[self.current_decision_key]["arguments_against"].append(argument)
+            self.save_data()
+            self.update_display()
+        self.arg_input.clear()
 
     def update_display(self):
-        self.question_label.setText(self.current_question)
-        self.arguments_for_list.clear()
-        self.arguments_against_list.clear()
-        for argument in self.arguments_for:
-            self.arguments_for_list.addItem(argument)
-        for argument in self.arguments_against:
-            self.arguments_against_list.addItem(argument)
-        self.for_count = len(self.arguments_for)
-        self.against_count = len(self.arguments_against)
-        # Set the values of QLCDNumber widgets
-        self.for_count_lcd.display(self.for_count)
-        self.against_count_lcd.display(self.against_count)
+        if self.current_decision_key:
+            current_data = self.decision_data[self.current_decision_key]
+            self.args_za.clear()
+            self.args_prot.clear()
+            for argument in current_data["arguments_for"]:
+                self.args_za.addItem(argument)
+            for argument in current_data["arguments_against"]:
+                self.args_prot.addItem(argument)
+            self.update_lcd_counts()
+
+    def update_lcd_counts(self):
+        if self.current_decision_key:
+            current_data = self.decision_data[self.current_decision_key]
+            self.lcdNumber_za.display(len(current_data["arguments_for"]))
+            self.lcdNumber_protiv.display(len(current_data["arguments_against"]))
 
     def reset_all(self):
-        self.current_question = "Вопрос"
-        self.question_input.setCurrentIndex(0)  # Reset QComboBox selection
-        self.arguments_for.clear()
-        self.arguments_against.clear()
-        self.save_data()
-        self.update_display()
+        if self.current_decision_key:
+            del self.decision_data[self.current_decision_key]
+            self.comboBox.removeItem(self.comboBox.currentIndex())
+            self.current_decision_key = None
+            self.update_display()
+            self.save_data()
 
     def load_data(self):
         try:
             with open("Сохранение 3 минипроекта.json", "r") as file:
-                data = json.load(file)
-                self.arguments_for = data["arguments_for"]
-                self.arguments_against = data["arguments_against"]
-                self.for_count = data["for_count"]
-                self.against_count = data["against_count"]
-                self.current_question = data["current_question"]
+                self.decision_data = json.load(file)
         except FileNotFoundError:
             pass
 
     def save_data(self):
         with open("Сохранение 3 минипроекта.json", "w") as file:
-            json.dump({"arguments_for": self.arguments_for,
-                       "arguments_against": self.arguments_against,
-                       "for_count": self.for_count,
-                       "against_count": self.against_count,
-                       "current_question": self.current_question}, file)
-
+            json.dump(self.decision_data, file)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
