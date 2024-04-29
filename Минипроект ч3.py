@@ -98,13 +98,13 @@ class DecisionMaker(QMainWindow):
 
     def load_data(self):
         try:
-            with open("Сохранение 3 минипроекта.json", "r") as file:
+            with open("/Users/arseniy/Documents/GitHub/UID/JSONки/Сохранение 3 минипроекта.json", "r") as file:
                 self.decision_data = json.load(file)
         except FileNotFoundError:
             pass
 
     def save_data(self):
-        with open("Сохранение 3 минипроекта.json", "w") as file:
+        with open("/Users/arseniy/Documents/GitHub/UID/JSONки/Сохранение 3 минипроекта.json", "w") as file:
             json.dump(self.decision_data, file)
 
 if __name__ == '__main__':
