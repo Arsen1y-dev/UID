@@ -7,7 +7,7 @@ from PyQt6.QtWidgets import QApplication, QWidget
 class MyWidget(QWidget):
     def __init__(self):
         super().__init__()
-        uic.loadUi('radio.ui', self)
+        uic.loadUi('/Users/arseniy/Documents/GitHub/UID/Задание 5. Заказ бизнес-ланча/radio.ui', self)
 
         self.pushButton.clicked.connect(self.run)
 
