@@ -1,11 +1,11 @@
 import sys
+import os
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QMessageBox
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
 import re
 import hashlib
 import json
-import os
 
 class StartWindow(QWidget):
     def __init__(self):
@@ -146,15 +146,17 @@ class RegistrationWindow(QWidget):
             "phone": phone
         }
 
-        if os.path.exists("users.json"):
-            with open("users.json", "r") as file:
+        file_path = os.path.join(os.path.dirname(__file__), "users.json")
+
+        if os.path.exists(file_path):
+            with open(file_path, "r") as file:
                 users = json.load(file)
         else:
             users = []
 
         users.append(user_data)
 
-        with open("users.json", "w") as file:
+        with open(file_path, "w") as file:
             json.dump(users, file, indent=4)
 
         QMessageBox.information(self, "Успех", "Пользователь успешно зарегистрирован.")
@@ -208,11 +210,13 @@ class LoginWindow(QWidget):
         login = self.entry_login.text()
         password = self.entry_password.text()
 
-        if not os.path.exists("users.json"):
+        file_path = os.path.join(os.path.dirname(__file__), "users.json")
+
+        if not os.path.exists(file_path):
             QMessageBox.critical(self, "Ошибка", "Пользователь с таким логином не найден.")
             return
 
-        with open("users.json", "r") as file:
+        with open(file_path, "r") as file:
             users = json.load(file)
             for user_data in users:
                 if user_data["login"] == login:
@@ -230,15 +234,13 @@ class LoginWindow(QWidget):
 
         layout = QVBoxLayout()
 
-        # Добавляем QLabel для отображения фотографии
         image_label = QLabel(self.new_window)
         pixmap = QPixmap("/Users/arseniy/Documents/GitHub/UID/Задание 6. Регистрация в окне/868FDA56-14D5-4816-97B5-D1E0D88B0E42_1_105_c.jpeg").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio)
         image_label.setPixmap(pixmap)
         image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # Добавляем кнопку для выхода
         logout_button = QPushButton("Выход", self.new_window)
-        logout_button.clicked.connect(self.close_windows)
+        logout_button.clicked.connect(self.back_to_start_and_close)
 
         layout.addWidget(image_label)
         layout.addWidget(logout_button)
@@ -248,9 +250,10 @@ class LoginWindow(QWidget):
         self.new_window.show()
         self.hide()
 
-    def close_windows(self):
+    def back_to_start_and_close(self):
+        self.start_window = StartWindow()
+        self.start_window.show()
         self.new_window.close()
-        self.close()
 
     def back_to_start(self):
         self.start_window = StartWindow()
