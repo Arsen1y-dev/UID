@@ -6,7 +6,7 @@ from PyQt6 import uic
 class DecisionMaker(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('Минипроект 3.ui', self)
+        uic.loadUi('Минипроект_3.ui', self)
 
         self.decision_data = {}
         self.current_decision_key = None
