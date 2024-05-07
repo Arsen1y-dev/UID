@@ -97,3 +97,4 @@ app = QApplication(sys.argv)
 window = BusinessLunchApp()
 window.show()
 sys.exit(app.exec())
+
