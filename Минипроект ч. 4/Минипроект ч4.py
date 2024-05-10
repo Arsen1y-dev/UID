@@ -1,24 +1,24 @@
 import sys
 import json
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QListWidget, QComboBox, QLCDNumber, QVBoxLayout, QHBoxLayout, QWidget
+from PyQt6.QtWidgets import (
+    QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, 
+    QListWidget, QLCDNumber, QVBoxLayout, QHBoxLayout, 
+    QWidget, QTabWidget, QCheckBox
+)
 
 class DecisionMaker(QMainWindow):
     def __init__(self):
         super().__init__()
-
         self.decision_data = {}
         self.current_decision_key = None
         self.load_data()
-        
         self.init_ui()
 
     def init_ui(self):
         self.setWindowTitle("Decision Maker")
         self.setGeometry(100, 100, 511, 423)
-
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
-
         self.layout = QVBoxLayout(self.central_widget)
 
         self.qwestion_input = QLineEdit()
@@ -28,102 +28,160 @@ class DecisionMaker(QMainWindow):
         self.qwestion_add.clicked.connect(self.set_question)
         self.layout.addWidget(self.qwestion_add)
 
-        self.comboBox = QComboBox()
-        self.comboBox.addItems(self.decision_data.keys())
-        self.comboBox.currentIndexChanged.connect(self.switch_question)
-        
-        self.layout.addWidget(self.comboBox)
+        # Tab Widget for Questions
+        self.tab_widget = QTabWidget()
+        self.layout.addWidget(self.tab_widget)
+        self.tab_widget.currentChanged.connect(self.switch_question)
 
-        self.arg_input = QLineEdit()
-        self.layout.addWidget(self.arg_input)
+        # Add existing questions as tabs
+        for question in self.decision_data:
+            self.add_tab(question)
 
-        self.btn_layout = QHBoxLayout()
-        self.layout.addLayout(self.btn_layout)
-
-        self.arg_za = QPushButton("Добавить аргумент 'за'")
-        self.arg_za.clicked.connect(self.add_argument_for)
-        self.btn_layout.addWidget(self.arg_za)
-
-        self.arp_prot = QPushButton("Добавить аргумент 'против'")
-        self.arp_prot.clicked.connect(self.add_argument_against)
-        self.btn_layout.addWidget(self.arp_prot)
-
-        self.args_layout = QHBoxLayout()
-        self.layout.addLayout(self.args_layout)
-
-        self.args_za = QListWidget()
-        self.args_layout.addWidget(self.args_za)
-
-        self.args_prot = QListWidget()
-        self.args_layout.addWidget(self.args_prot)
-
-        self.lcd_layout = QHBoxLayout()
-        self.layout.addLayout(self.lcd_layout)
-
-        self.lcdNumber_za = QLCDNumber()
-        self.lcd_layout.addWidget(self.lcdNumber_za)
-
-        self.lcdNumber_protiv = QLCDNumber()
-        self.lcd_layout.addWidget(self.lcdNumber_protiv)
-
-        self.reset = QPushButton("Сброс")
-        self.reset.clicked.connect(self.reset_all)
-        self.layout.addWidget(self.reset)
-        
         self.update_display()
 
-    def switch_question(self):
-        self.current_decision_key = self.comboBox.currentText()
+    def add_tab(self, question):
+        tab = QWidget()
+        tab_layout = QVBoxLayout()
+
+        arg_input = QLineEdit()
+        btn_layout = QHBoxLayout()
+        args_layout = QHBoxLayout()
+        lcd_layout = QHBoxLayout()
+        reset_button = QPushButton("Сброс")
+        decision_made_checkbox = QCheckBox("Решение принято")
+
+        arg_za = QPushButton("Добавить аргумент 'за'")
+        arg_za.clicked.connect(self.add_argument_for)
+        btn_layout.addWidget(arg_za)
+
+        arp_prot = QPushButton("Добавить аргумент 'против'")
+        arp_prot.clicked.connect(self.add_argument_against)
+        btn_layout.addWidget(arp_prot)
+
+        args_za = QListWidget()  # Renamed variable
+        args_za.setObjectName("args_za")
+        args_layout.addWidget(args_za)
+        
+        args_prot = QListWidget()
+        args_prot.setObjectName("args_prot")
+        args_layout.addWidget(args_prot)
+
+        lcdNumber_za = QLCDNumber()
+        lcdNumber_za.setObjectName("lcdNumber_za")
+        lcd_layout.addWidget(lcdNumber_za)
+
+        lcdNumber_protiv = QLCDNumber()
+        lcdNumber_protiv.setObjectName("lcdNumber_protiv")
+        lcd_layout.addWidget(lcdNumber_protiv)
+
+        reset_button.clicked.connect(self.reset_all)
+        decision_made_checkbox.stateChanged.connect(self.handle_decision_made)
+
+        tab_layout.addWidget(arg_input)
+        tab_layout.addLayout(btn_layout)
+        tab_layout.addLayout(args_layout)
+        tab_layout.addLayout(lcd_layout)
+        tab_layout.addWidget(reset_button)
+        tab_layout.addWidget(decision_made_checkbox)
+
+        tab.setLayout(tab_layout)
+        self.tab_widget.addTab(tab, question)
+
+    def switch_question(self, index):
+        self.current_decision_key = self.tab_widget.tabText(index)
         self.update_display()
 
     def set_question(self):
         new_question = self.qwestion_input.text()
         if new_question and new_question not in self.decision_data:
             self.decision_data[new_question] = {"arguments_for": [], "arguments_against": []}
-            self.comboBox.addItem(new_question)
-            self.comboBox.setCurrentText(new_question)
+            self.add_tab(new_question)
+            self.tab_widget.setCurrentIndex(self.tab_widget.count() - 1)
             self.current_decision_key = new_question
             self.save_data()
         self.qwestion_input.clear()
 
     def add_argument_for(self):
         if self.current_decision_key:
-            argument = self.arg_input.text()
+            current_tab = self.tab_widget.currentWidget()
+            arg_input = current_tab.findChild(QLineEdit)  # Get the QLineEdit from the current tab
+            argument = arg_input.text()
             self.decision_data[self.current_decision_key]["arguments_for"].append(argument)
             self.save_data()
             self.update_display()
-        self.arg_input.clear()
+            arg_input.clear() 
 
-    def add_argument_against(self):
+    def add_argument_against(self): 
         if self.current_decision_key:
-            argument = self.arg_input.text()
+            current_tab = self.tab_widget.currentWidget()
+            arg_input = current_tab.findChild(QLineEdit)  # Get the QLineEdit from the current tab
+            argument = arg_input.text()
             self.decision_data[self.current_decision_key]["arguments_against"].append(argument)
-            self.save_data()
+            self.save_data() 
             self.update_display()
-        self.arg_input.clear()
+            arg_input.clear()
 
-    def update_display(self):
+    def update_display(self): 
         if self.current_decision_key:
-            current_data = self.decision_data[self.current_decision_key]
-            self.args_za.clear()
-            self.args_prot.clear()
-            for argument in current_data["arguments_for"]:
-                self.args_za.addItem(argument)
-            for argument in current_data["arguments_against"]:
-                self.args_prot.addItem(argument)
-            self.update_lcd_counts()
+            current_tab = self.tab_widget.currentWidget() 
+            args_za = current_tab.findChild(QListWidget, name="args_za")  
+            args_prot = current_tab.findChild(QListWidget, name="args_prot")  
+            lcdNumber_za = current_tab.findChild(QLCDNumber, name="lcdNumber_za") 
+            lcdNumber_protiv = current_tab.findChild(QLCDNumber, name="lcdNumber_protiv") 
 
+            current_data = self.decision_data[self.current_decision_key] 
+            args_za.clear() 
+            args_prot.clear() 
+            for argument in current_data["arguments_for"]: 
+                args_za.addItem(argument) 
+            for argument in current_data["arguments_against"]: 
+                args_prot.addItem(argument) 
+            lcdNumber_za.display(len(current_data["arguments_for"])) 
+            lcdNumber_protiv.display(len(current_data["arguments_against"])) 
+
+            decision_made_checkbox = current_tab.findChild(QCheckBox)
+            decision_made_checkbox.setEnabled(True)
+            
+            
     def update_lcd_counts(self):
         if self.current_decision_key:
             current_data = self.decision_data[self.current_decision_key]
             self.lcdNumber_za.display(len(current_data["arguments_for"]))
             self.lcdNumber_protiv.display(len(current_data["arguments_against"]))
+        else:
+            self.lcdNumber_za.display(0)
+            self.lcdNumber_protiv.display(0)
+
+    def handle_decision_made(self, state):
+        current_tab = self.tab_widget.currentWidget()
+        arg_input = current_tab.findChild(QLineEdit)
+        arg_za = current_tab.findChild(QPushButton, name="arg_za")
+        arp_prot = current_tab.findChild(QPushButton, name="arp_prot")
+        reset_button = current_tab.findChild(QPushButton)  # Find by type
+
+        if state:  # Если галочка отмечена
+            # Замораживаем интерфейс
+            self.qwestion_input.setEnabled(False)
+            self.qwestion_add.setEnabled(False)
+            arg_input.setEnabled(False)  # Disable QLineEdit in current tab
+            arg_za.setEnabled(False)
+            arp_prot.setEnabled(False)
+            reset_button.setEnabled(False)
+        else:  # Если галочка снята
+        # Размораживаем интерфейс
+            self.qwestion_input.setEnabled(True)
+            self.qwestion_add.setEnabled(True)
+            arg_input.setEnabled(True)  # Enable QLineEdit in current tab
+            arg_za.setEnabled(True)
+            arp_prot.setEnabled(True)
+            reset_button.setEnabled(True)
 
     def reset_all(self):
         if self.current_decision_key:
+            current_index = self.tab_widget.currentIndex()
+            self.tab_widget.removeTab(current_index)  # Remove current tab
             del self.decision_data[self.current_decision_key]
-            self.comboBox.removeItem(self.comboBox.currentIndex())
-            self.current_decision_key = None
+            self.current_decision_key = None  # May need to update based on remaining tabs
             self.update_display()
             self.save_data()
 
