@@ -1,10 +1,11 @@
 import sys
 import json
 from PyQt6.QtWidgets import (
-    QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, 
-    QListWidget, QLCDNumber, QVBoxLayout, QHBoxLayout, 
+    QApplication, QMainWindow, QPushButton, QLabel, QLineEdit,
+    QListWidget, QLCDNumber, QVBoxLayout, QHBoxLayout,
     QWidget, QTabWidget, QCheckBox
 )
+
 
 class DecisionMaker(QMainWindow):
     def __init__(self):
@@ -51,17 +52,19 @@ class DecisionMaker(QMainWindow):
         decision_made_checkbox = QCheckBox("Решение принято")
 
         arg_za = QPushButton("Добавить аргумент 'за'")
+        arg_za.setObjectName("arg_za")  # Set object name
         arg_za.clicked.connect(self.add_argument_for)
         btn_layout.addWidget(arg_za)
 
         arp_prot = QPushButton("Добавить аргумент 'против'")
+        arp_prot.setObjectName("arp_prot")  # Set object name
         arp_prot.clicked.connect(self.add_argument_against)
         btn_layout.addWidget(arp_prot)
 
-        args_za = QListWidget()  # Renamed variable
+        args_za = QListWidget()
         args_za.setObjectName("args_za")
         args_layout.addWidget(args_za)
-        
+
         args_prot = QListWidget()
         args_prot.setObjectName("args_prot")
         args_layout.addWidget(args_prot)
@@ -104,45 +107,48 @@ class DecisionMaker(QMainWindow):
     def add_argument_for(self):
         if self.current_decision_key:
             current_tab = self.tab_widget.currentWidget()
-            arg_input = current_tab.findChild(QLineEdit)  # Get the QLineEdit from the current tab
+            arg_input = current_tab.findChild(QLineEdit)
             argument = arg_input.text()
             self.decision_data[self.current_decision_key]["arguments_for"].append(argument)
             self.save_data()
-            self.update_display()
-            arg_input.clear() 
-
-    def add_argument_against(self): 
-        if self.current_decision_key:
-            current_tab = self.tab_widget.currentWidget()
-            arg_input = current_tab.findChild(QLineEdit)  # Get the QLineEdit from the current tab
-            argument = arg_input.text()
-            self.decision_data[self.current_decision_key]["arguments_against"].append(argument)
-            self.save_data() 
-            self.update_display()
+            self.update_tab_display(current_tab)  # Update the current tab's display
             arg_input.clear()
 
-    def update_display(self): 
+    def add_argument_against(self):
         if self.current_decision_key:
-            current_tab = self.tab_widget.currentWidget() 
-            args_za = current_tab.findChild(QListWidget, name="args_za")  
-            args_prot = current_tab.findChild(QListWidget, name="args_prot")  
-            lcdNumber_za = current_tab.findChild(QLCDNumber, name="lcdNumber_za") 
-            lcdNumber_protiv = current_tab.findChild(QLCDNumber, name="lcdNumber_protiv") 
+            current_tab = self.tab_widget.currentWidget()
+            arg_input = current_tab.findChild(QLineEdit)
+            argument = arg_input.text()
+            self.decision_data[self.current_decision_key]["arguments_against"].append(argument)
+            self.save_data()
+            self.update_tab_display(current_tab)  # Update the current tab's display
+            arg_input.clear()
 
-            current_data = self.decision_data[self.current_decision_key] 
-            args_za.clear() 
-            args_prot.clear() 
-            for argument in current_data["arguments_for"]: 
-                args_za.addItem(argument) 
-            for argument in current_data["arguments_against"]: 
-                args_prot.addItem(argument) 
-            lcdNumber_za.display(len(current_data["arguments_for"])) 
-            lcdNumber_protiv.display(len(current_data["arguments_against"])) 
+    def update_display(self):
+        if self.current_decision_key:
+            current_tab = self.tab_widget.currentWidget()
+            self.update_tab_display(current_tab)  # Update the display for the current tab
 
-            decision_made_checkbox = current_tab.findChild(QCheckBox)
-            decision_made_checkbox.setEnabled(True)
-            
-            
+    def update_tab_display(self, tab):
+        """Updates the display of arguments and counts for a specific tab."""
+        args_za = tab.findChild(QListWidget, name="args_za")
+        args_prot = tab.findChild(QListWidget, name="args_prot")
+        lcdNumber_za = tab.findChild(QLCDNumber, name="lcdNumber_za")
+        lcdNumber_protiv = tab.findChild(QLCDNumber, name="lcdNumber_protiv")
+
+        current_data = self.decision_data[self.current_decision_key]
+        args_za.clear()
+        args_prot.clear()
+        for argument in current_data["arguments_for"]:
+            args_za.addItem(argument)
+        for argument in current_data["arguments_against"]:
+            args_prot.addItem(argument)
+        lcdNumber_za.display(len(current_data["arguments_for"]))
+        lcdNumber_protiv.display(len(current_data["arguments_against"]))
+
+        decision_made_checkbox = tab.findChild(QCheckBox)
+        decision_made_checkbox.setEnabled(True)
+
     def update_lcd_counts(self):
         if self.current_decision_key:
             current_data = self.decision_data[self.current_decision_key]
@@ -155,35 +161,49 @@ class DecisionMaker(QMainWindow):
     def handle_decision_made(self, state):
         current_tab = self.tab_widget.currentWidget()
         arg_input = current_tab.findChild(QLineEdit)
-        arg_za = current_tab.findChild(QPushButton, name="arg_za")
-        arp_prot = current_tab.findChild(QPushButton, name="arp_prot")
-        reset_button = current_tab.findChild(QPushButton)  # Find by type
+        arg_za = current_tab.findChild(QPushButton, name="arg_za")  # Find using object name
+        arp_prot = current_tab.findChild(QPushButton, name="arp_prot")  # Find using object name
+        reset_button = current_tab.findChild(QPushButton)
 
-        if state:  # Если галочка отмечена
-            # Замораживаем интерфейс
+        if state:
             self.qwestion_input.setEnabled(False)
             self.qwestion_add.setEnabled(False)
-            arg_input.setEnabled(False)  # Disable QLineEdit in current tab
-            arg_za.setEnabled(False)
-            arp_prot.setEnabled(False)
-            reset_button.setEnabled(False)
-        else:  # Если галочка снята
-        # Размораживаем интерфейс
+            arg_input.setEnabled(False)
+            if arg_za is not None:
+                arg_za.setEnabled(False)
+            if arp_prot is not None:
+                arp_prot.setEnabled(False)
+            if reset_button is not None:
+                reset_button.setEnabled(False)
+        else:
             self.qwestion_input.setEnabled(True)
             self.qwestion_add.setEnabled(True)
-            arg_input.setEnabled(True)  # Enable QLineEdit in current tab
-            arg_za.setEnabled(True)
-            arp_prot.setEnabled(True)
-            reset_button.setEnabled(True)
+            arg_input.setEnabled(True)
+            if arg_za is not None:
+                arg_za.setEnabled(True)
+            if arp_prot is not None:
+                arp_prot.setEnabled(True)
+            if reset_button is not None:
+                reset_button.setEnabled(True)
 
     def reset_all(self):
         if self.current_decision_key:
             current_index = self.tab_widget.currentIndex()
-            self.tab_widget.removeTab(current_index)  # Remove current tab
+            self.tab_widget.removeTab(current_index)
             del self.decision_data[self.current_decision_key]
-            self.current_decision_key = None  # May need to update based on remaining tabs
+
+            # Update current_decision_key BEFORE calling update_display
+            if self.tab_widget.count() > 0:
+                self.current_decision_key = self.tab_widget.tabText(self.tab_widget.currentIndex())
+            else:
+                self.current_decision_key = None
+
             self.update_display()
             self.save_data()
+
+    def update_display(self):
+        if self.current_decision_key:  # Check if a question is selected
+            current_tab = self.tab_widget.currentWidget()
 
     def load_data(self):
         try:
@@ -196,6 +216,7 @@ class DecisionMaker(QMainWindow):
     def save_data(self):
         with open("/Users/arseniy/Documents/GitHub/UID/Минипроект ч. 4/Сохранение_4_минипроекта.json", "w") as file:
             json.dump(self.decision_data, file)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

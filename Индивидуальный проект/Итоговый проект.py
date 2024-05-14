@@ -20,7 +20,7 @@ from PyQt6.QtWidgets import (
     QDateEdit,
     QHeaderView,
     QRadioButton,
-    QTableWidgetItem  # Добавлен импорт
+    QTableWidgetItem
 )
 from PyQt6.QtGui import (
     QPixmap,
@@ -423,7 +423,7 @@ class ClientMainWindow(QMainWindow):
         welcome_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(welcome_label)
 
-        # Логотип (замените на свой путь к файлу)
+        # Логотип
         logo_label = QLabel(self)
         pixmap = QPixmap("logo.png").scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio)
         logo_label.setPixmap(pixmap)
@@ -985,7 +985,6 @@ class ReportsWindow(QWidget):
 
         popular_services = sorted(service_counts.items(), key=lambda item: item[1], reverse=True)
 
-        # ... (остальной код report_text)
 
         # Добавление информации о популярных услугах в report_text
         report_text = f"Отчет за период с {start_date.strftime('%Y-%m-%d')} по {end_date.strftime('%Y-%m-%d')}\n\n" \

@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ec0d254-ac3f-4a48-b84f-1b668dbd244d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Индивидуальный проект/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/UID.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UID.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1,2,3 Задания/Задание 3. Планировщик.py" beforeDir="false" afterPath="$PROJECT_DIR$/1,2,3 Задания/Задание 3. Планировщик.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EventDialog.ui" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JSONки/events.json" beforeDir="false" afterPath="$PROJECT_DIR$/1,2,3 Задания/events.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Индивидуальный проект/orders.json" beforeDir="false" afterPath="$PROJECT_DIR$/Индивидуальный проект/report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Индивидуальный проект/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/Индивидуальный проект/users.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Индивидуальный проект/Итоговый проект.py" beforeDir="false" afterPath="$PROJECT_DIR$/Индивидуальный проект/Итоговый проект.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Минипроект ч. 4/Минипроект ч4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Минипроект ч. 4/Минипроект ч4.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Минипроект ч. 4/Сохранение_4_минипроекта.json" beforeDir="false" afterPath="$PROJECT_DIR$/Минипроект ч. 4/Сохранение_4_минипроекта.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,10 +61,12 @@
   "keyToString": {
     "Python.222.executor": "Run",
     "Python.app.executor": "Run",
+    "Python.h.executor": "Run",
     "Python.Задание 2. Создание окна вручную.executor": "Run",
     "Python.Задание 3. Планировщик.executor": "Run",
     "Python.Итоговый проект.executor": "Run",
     "Python.Минипроект ч4.executor": "Run",
+    "Python.пр.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
@@ -93,52 +88,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.Минипроект ч4">
-    <configuration name="Задание 2. Создание окна вручную" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="UID" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.11 (ITP)" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Задание 2. Создание окна вручную.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Задание 3. Планировщик" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="UID" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/1,2,3 Задания" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/1,2,3 Задания/Задание 3. Планировщик.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="Минипроект ч4" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UID" />
       <option name="ENV_FILES" value="" />
@@ -183,6 +132,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="пр" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UID" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Индивидуальный проект" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Индивидуальный проект/пр.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="222" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UID" />
       <option name="ENV_FILES" value="" />
@@ -205,13 +176,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="h" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UID" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Минипроект ч. 4" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Минипроект ч. 4/h.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.Минипроект ч4" />
+        <item itemvalue="Python.пр" />
+        <item itemvalue="Python.h" />
         <item itemvalue="Python.Итоговый проект" />
         <item itemvalue="Python.222" />
-        <item itemvalue="Python.Задание 3. Планировщик" />
-        <item itemvalue="Python.Задание 2. Создание окна вручную" />
       </list>
     </recent_temporary>
   </component>
