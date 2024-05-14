@@ -1,9 +1,23 @@
 [
     {
-        "login": "Qwerty1",
+        "login": "User1",
         "password": "06c08ed3dd4a4779dc55b78411c23c3c03cca15a412e037c418e286ffa4e4c2e",
-        "email": "qwerty1@mail.ru",
+        "email": "user@mail.ru",
+        "phone": "89999999998",
+        "role": "employee"
+    },
+    {
+        "login": "Admin1",
+        "password": "06c08ed3dd4a4779dc55b78411c23c3c03cca15a412e037c418e286ffa4e4c2e",
+        "email": "admin@mail.ru",
+        "phone": "89999999997",
+        "role": "admin"
+    },
+    {
+        "login": "Client1",
+        "email": "client@mail.ru",
         "phone": "89999999999",
-        "role": "client"
+        "role": "client",
+        "password": "06c08ed3dd4a4779dc55b78411c23c3c03cca15a412e037c418e286ffa4e4c2e"
     }
 ]
