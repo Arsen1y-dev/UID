@@ -19,5 +19,12 @@
         "phone": "89999999999",
         "role": "client",
         "password": "06c08ed3dd4a4779dc55b78411c23c3c03cca15a412e037c418e286ffa4e4c2e"
+    },
+    {
+        "login": "Client5",
+        "password": "06c08ed3dd4a4779dc55b78411c23c3c03cca15a412e037c418e286ffa4e4c2e",
+        "email": "client!@mail.ru",
+        "phone": "89999999995",
+        "role": "employee"
     }
 ]
