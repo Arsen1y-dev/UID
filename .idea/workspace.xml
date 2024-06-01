@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8ec0d254-ac3f-4a48-b84f-1b668dbd244d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Задание 7. Виртуальная клавиатура/Задание 7. Виртуальная клавиатура.py" beforeDir="false" afterPath="$PROJECT_DIR$/Задание 7. Виртуальная клавиатура/Задание 7. Виртуальная клавиатура.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Минипроект ч. 4,5,6/Минипроект ч. 6.py" beforeDir="false" afterPath="$PROJECT_DIR$/Минипроект ч. 4,5,6/Минипроект ч. 6.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Минипроект ч. 4,5,6/Сохранение_4_минипроекта.json" beforeDir="false" afterPath="$PROJECT_DIR$/Минипроект ч. 4,5,6/Сохранение_4_минипроекта.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +41,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Индивидуальный проект/Итоговый проект.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Минипроект ч. 4,5,6/Минипроект ч. 6.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -54,38 +58,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.222.executor&quot;: &quot;Run&quot;,
-    &quot;Python.app.executor&quot;: &quot;Run&quot;,
-    &quot;Python.h.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Задание 2. Создание окна вручную.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Задание 3. Планировщик.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Итоговый проект.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Минипроект ч. 5.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Минипроект ч4.executor&quot;: &quot;Run&quot;,
-    &quot;Python.пр.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/arseniy/Documents/GitHub/UID&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;database.data.views.appearance&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.222.executor": "Run",
+    "Python.app.executor": "Run",
+    "Python.h.executor": "Run",
+    "Python.Задание 2. Создание окна вручную.executor": "Run",
+    "Python.Задание 3. Планировщик.executor": "Run",
+    "Python.Задание 7. Виртуальная клавиатура.executor": "Run",
+    "Python.Итоговый проект.executor": "Run",
+    "Python.Минипроект ч. 5 (1).executor": "Run",
+    "Python.Минипроект ч. 5.executor": "Run",
+    "Python.Минипроект ч. 6.executor": "Run",
+    "Python.Минипроект ч4.executor": "Run",
+    "Python.пр.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/arseniy/Documents/GitHub/UID",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "settings.editor.selected.configurable": "database.data.views.appearance",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Индивидуальный проект" />
       <recent name="$PROJECT_DIR$/1,2,3 Задания" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Минипроект ч. 5 (1)">
+  <component name="RunManager" selected="Python.Минипроект ч. 6">
     <configuration name="Задание 2. Создание окна вручную" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UID" />
       <option name="ENV_FILES" value="" />
@@ -108,7 +115,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Минипроект ч4" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Задание 7. Виртуальная клавиатура" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UID" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -117,11 +124,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Минипроект ч. 4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Задание 7. Виртуальная клавиатура" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Минипроект ч. 4/Минипроект ч4.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Задание 7. Виртуальная клавиатура/Задание 7. Виртуальная клавиатура.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -174,7 +181,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="пр" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Минипроект ч. 6" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UID" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -183,11 +190,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Индивидуальный проект" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Минипроект ч. 4,5,6" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Индивидуальный проект/пр.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Минипроект ч. 4,5,6/Минипроект ч. 6.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -198,18 +205,18 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Минипроект ч. 6" />
+        <item itemvalue="Python.Задание 7. Виртуальная клавиатура" />
         <item itemvalue="Python.Минипроект ч. 5 (1)" />
         <item itemvalue="Python.Задание 2. Создание окна вручную" />
         <item itemvalue="Python.Минипроект ч. 5" />
-        <item itemvalue="Python.Минипроект ч4" />
-        <item itemvalue="Python.пр" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-09665e90c3a7-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.15026.15" />
+        <option value="bundled-python-sdk-48aec45f0201-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17011.127" />
       </set>
     </attachedChunks>
   </component>
