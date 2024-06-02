@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QHBoxLayout, QWidget, QLineEdit, \
     QInputDialog, QGridLayout
-from PyQt6.QtCore import Qt, QEvent, QPoint
+from PyQt6.QtCore import Qt
 
 
 class DraggableButton(QPushButton):
@@ -10,7 +10,7 @@ class DraggableButton(QPushButton):
         self.setFixedSize(50, 50)
         self.setCheckable(True)
         self.grid_size = 50
-        self.setFocusPolicy(Qt.FocusPolicy.ClickFocus)
+        self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.setStyleSheet("background-color: lightgray; font-size: 18px;")
 
     def mousePressEvent(self, event):
@@ -35,6 +35,8 @@ class DraggableButton(QPushButton):
     def keyPressEvent(self, event):
         if event.key() in {Qt.Key.Key_Up, Qt.Key.Key_Down, Qt.Key.Key_Left, Qt.Key.Key_Right}:
             self.navigate_focus(event.key())
+        else:
+            super().keyPressEvent(event)
 
     def navigate_focus(self, key):
         if not self.parent():
@@ -44,14 +46,14 @@ class DraggableButton(QPushButton):
         current_index = layout.indexOf(self)
         total_buttons = layout.count()
 
-        if key == Qt.Key.Key_Up and current_index > 0:
-            target_index = current_index - 1
-        elif key == Qt.Key.Key_Down and current_index < total_buttons - 1:
-            target_index = current_index + 1
-        elif key == Qt.Key.Key_Left and current_index > 0:
-            target_index = current_index - 1
-        elif key == Qt.Key.Key_Right and current_index < total_buttons - 1:
-            target_index = current_index + 1
+        if key == Qt.Key.Key_Up:
+            target_index = (current_index - 1) % total_buttons
+        elif key == Qt.Key.Key_Down:
+            target_index = (current_index + 1) % total_buttons
+        elif key == Qt.Key.Key_Left:
+            target_index = (current_index - 1) % total_buttons
+        elif key == Qt.Key.Key_Right:
+            target_index = (current_index + 1) % total_buttons
         else:
             return
 
@@ -79,6 +81,7 @@ class VirtualKeyboard(QMainWindow):
 
         self.text_edit = QLineEdit()
         self.text_edit.setFixedHeight(50)
+        self.text_edit.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.main_layout.addWidget(self.text_edit)
 
         # Add a horizontal layout for special keys
@@ -87,6 +90,7 @@ class VirtualKeyboard(QMainWindow):
         for key in special_keys:
             button = QPushButton(key)
             button.setFixedSize(80, 50)
+            button.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
             button.clicked.connect(lambda _, key=key: self.onSpecialKeyButtonClick(key))
             self.special_keys_layout.addWidget(button)
 
@@ -95,6 +99,7 @@ class VirtualKeyboard(QMainWindow):
         self.keyboard_area = QWidget(self)
         self.keyboard_area.setStyleSheet("background-color: white; border: 1px solid black;")
         self.keyboard_area.setMouseTracking(True)
+        self.keyboard_area.setLayout(QGridLayout())  # Используем сеточный макет для кнопок
         self.main_layout.addWidget(self.keyboard_area)
 
         self.show()
@@ -111,6 +116,7 @@ class VirtualKeyboard(QMainWindow):
             button.setText(letter)
             button.clicked.connect(lambda _, button=button, letter=letter: self.onButtonClick(button, letter))
             button.show()
+            self.keyboard_area.layout().addWidget(button)  # Добавляем кнопку в макет
 
     def onSpecialKeyButtonClick(self, key):
         if key == "Shift":
@@ -135,13 +141,21 @@ class VirtualKeyboard(QMainWindow):
             focused_widget.keyPressEvent(event)
         elif event.key() in {Qt.Key.Key_Tab, Qt.Key.Key_Backtab}:
             self.navigate_focus(event)
+        else:
+            super().keyPressEvent(event)
 
     def navigate_focus(self, event):
         focus_widget = self.focusWidget()
         if event.key() == Qt.Key.Key_Tab:
-            focus_widget.nextInFocusChain().setFocus()
+            next_widget = focus_widget.nextInFocusChain()
+            while not next_widget.isEnabled() or next_widget == focus_widget:
+                next_widget = next_widget.nextInFocusChain()
+            next_widget.setFocus()
         elif event.key() == Qt.Key.Key_Backtab:
-            focus_widget.previousInFocusChain().setFocus()
+            prev_widget = focus_widget.previousInFocusChain()
+            while not prev_widget.isEnabled() or prev_widget == focus_widget:
+                prev_widget = prev_widget.previousInFocusChain()
+            prev_widget.setFocus()
 
 
 def main():
