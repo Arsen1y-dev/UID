@@ -120,5 +120,24 @@
             }
         ],
         "total_price": 600
+    },
+    {
+        "id": 9,
+        "client_login": "zalupko84T",
+        "date": "2024-06-01",
+        "status": "\u041d\u043e\u0432\u044b\u0439",
+        "services": [
+            {
+                "service_id": 4,
+                "quantity": 8,
+                "paper_type": "\u041c\u0430\u0442\u043e\u0432\u0430\u044f"
+            },
+            {
+                "service_id": 3,
+                "quantity": 12,
+                "paper_type": "\u041c\u0430\u0442\u043e\u0432\u0430\u044f"
+            }
+        ],
+        "total_price": 5200
     }
 ]

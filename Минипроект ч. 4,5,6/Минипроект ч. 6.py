@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QPushButton, QLabel, QLineEdit,
     QListWidget, QLCDNumber, QVBoxLayout, QHBoxLayout,
     QWidget, QTabWidget, QCheckBox, QDialog, QMessageBox, QFormLayout,
-    QMenu, QFileDialog
+    QMenu, QFileDialog, QInputDialog
 )
 from PyQt6.QtGui import QAction, QDrag, QShortcut, QKeySequence
 from PyQt6.QtCore import Qt, QMimeData, QTimer, QEvent
@@ -54,40 +54,35 @@ class DecisionMaker(QMainWindow):
         exit_action.triggered.connect(self.close)
         file_menu.addAction(exit_action)
 
-        # Edit Menu Actions
         undo_action = QAction("Отмена", self)
         undo_action.setShortcut("Ctrl+Z")
-        # TODO: Implement Undo functionality
         edit_menu.addAction(undo_action)
 
-        # Help Menu Actions
         help_action = QAction("Справка", self)
         help_action.setShortcut("F1")
         help_action.triggered.connect(self.show_help_dialog)
         help_menu.addAction(help_action)
 
-        # Add Question Button
         self.qwestion_add = QPushButton("Добавить вопрос")
         self.qwestion_add.clicked.connect(self.show_question_dialog)
         self.layout.addWidget(self.qwestion_add)
 
-        # Tab Widget for Questions
         self.tab_widget = QTabWidget()
         self.layout.addWidget(self.tab_widget)
         self.tab_widget.currentChanged.connect(self.switch_question)
-        self.tab_widget.setTabsClosable(True)  # Enable close button on tabs
+        self.tab_widget.setTabsClosable(True)
         self.tab_widget.tabCloseRequested.connect(self.close_tab)
 
-        # Add existing questions as tabs
         for question in self.decision_data.get(self.current_user, {}):
             self.add_tab(question)
 
         self.update_display()
 
         # Shortcuts
-        QShortcut(QKeySequence(Qt.Key.Key_Delete), self.tab_widget, self.delete_tab, context=Qt.ShortcutContext.ApplicationShortcut)
-        QShortcut(QKeySequence(Qt.Key.Key_N), self.tab_widget, self.show_question_dialog, context=Qt.ShortcutContext.ApplicationShortcut)
-
+        QShortcut(QKeySequence(Qt.Key.Key_Delete), self.tab_widget, self.delete_tab,
+                  context=Qt.ShortcutContext.ApplicationShortcut)
+        QShortcut(QKeySequence(Qt.Key.Key_N), self.tab_widget, self.show_question_dialog,
+                  context=Qt.ShortcutContext.ApplicationShortcut)
 
     def add_tab(self, question):
         tab = QWidget()
@@ -270,7 +265,6 @@ class DecisionMaker(QMainWindow):
                     self.current_user]:
                     del self.decision_data[self.current_user][self.current_decision_key]
 
-                # Update current_decision_key BEFORE calling update_display
                 if self.tab_widget.count() > 0:
                     self.current_decision_key = self.tab_widget.tabText(self.tab_widget.currentIndex())
                 else:
@@ -319,7 +313,7 @@ class DecisionMaker(QMainWindow):
     def handle_login(self, username, password, dialog):
         if username in self.user_data and self.user_data[username] == password:
             self.current_user = username
-            self.init_ui()  # Reinitialize the UI with the correct user data
+            self.init_ui()
             dialog.accept()
         else:
             QMessageBox.warning(self, "Ошибка авторизации", "Неверное имя пользователя или пароль.")
@@ -352,7 +346,7 @@ class DecisionMaker(QMainWindow):
                     data = json.load(file)
                     self.decision_data = data.get("decisions", {})
                     self.user_data = data.get("users", {})
-                    self.init_ui()  # Reinitialize the UI after loading data
+                    self.init_ui()
             except json.JSONDecodeError:
                 QMessageBox.warning(self, "Ошибка", "Неверный формат файла.")
             except FileNotFoundError:
@@ -437,8 +431,8 @@ class DecisionMaker(QMainWindow):
             self.save_data()
 
     def contextMenuEvent(self, event):
-        if self.tab_widget.underMouse():
-            tab_index = self.tab_widget.currentIndex()
+        tab_index = self.tab_widget.tabBar().tabAt(event.pos())
+        if tab_index != -1:
             tab_text = self.tab_widget.tabText(tab_index)
             menu = QMenu(self)
 
@@ -451,14 +445,8 @@ class DecisionMaker(QMainWindow):
             menu.addAction(delete_action)
 
             menu.exec(event.globalPos())
-        elif event.widget() in [self.tab_widget.widget(i) for i in range(self.tab_widget.count())]:
-            menu = QMenu(self)
-
-            delete_action = QAction("Удалить", self)
-            delete_action.triggered.connect(lambda: self.delete_argument(self.sender()))
-            menu.addAction(delete_action)
-
-            menu.exec(event.globalPos())
+        else:
+            pass
 
     def rename_tab(self, tab_index, tab_text):
         new_name, ok = QInputDialog.getText(self, "Переименовать вкладку", "Введите новое имя:")

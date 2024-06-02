@@ -26,5 +26,12 @@
         "email": "client!@mail.ru",
         "phone": "89999999995",
         "role": "employee"
+    },
+    {
+        "login": "zalupko84T",
+        "password": "06c08ed3dd4a4779dc55b78411c23c3c03cca15a412e037c418e286ffa4e4c2e",
+        "email": "zalupko84T@mail.ru",
+        "phone": "89063076426",
+        "role": "client"
     }
 ]

@@ -220,7 +220,7 @@ class DecisionMaker(QMainWindow):
 
     def load_data(self):
         try:
-            with open("Сохранение_4_минипроекта.json", "r") as file:
+            with open("Сохранение_5_минипроекта.json", "r") as file:
                 data = json.load(file)
                 self.decision_data = data.get("decisions", {})
                 self.user_data = data.get("users", {})
@@ -229,7 +229,7 @@ class DecisionMaker(QMainWindow):
             pass
 
     def save_data(self):
-        with open("Сохранение_4_минипроекта.json", "w") as file:
+        with open("Сохранение_5_минипроекта.json", "w") as file:
             json.dump({"decisions": self.decision_data, "users": self.user_data}, file)
 
     def show_login_dialog(self):
