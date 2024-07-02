@@ -3,7 +3,7 @@ from PyQt6 import QtWidgets, uic
 from PyQt6.QtGui import QIcon, QPixmap, QTransform
 from PyQt6.QtCore import QTimer
 import os
-from PIL import Image
+
 
 
 path = '/Users/arseniy/Documents/GitHub/interface_py/Задание 4. Просмотрщик изображений/files'

@@ -1,0 +1,34 @@
+{
+    "\u0444\u0444": {
+        "decision_data": {
+            "\u0444\u0444": {
+                "arguments_for": [
+                    "\u0444\u0444\u0444\u0444"
+                ],
+                "arguments_against": [
+                    "\u0444\u0444",
+                    "\u0444\u0444",
+                    "\u0444",
+                    "",
+                    "\u0444"
+                ]
+            }
+        },
+        "decision_accepted": {
+            "\u0444\u0444": false
+        }
+    },
+    "qwerty": {
+        "decision_data": {
+            "\u0439\u0446\u0443": {
+                "arguments_for": [
+                    "\u0439\u0443\u0446"
+                ],
+                "arguments_against": []
+            }
+        },
+        "decision_accepted": {
+            "\u0439\u0446\u0443": false
+        }
+    }
+}
